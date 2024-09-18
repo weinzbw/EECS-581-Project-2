@@ -1,7 +1,10 @@
 # Accounting of Person-Hours
 
 **Team**
+9/18/24 - 0.75h
 
+* Meeting with GTA
+* Tean Meeting to Divide Work in the Project
 ---
 
 **Ben Weinzirl**
