@@ -38,21 +38,30 @@ def main() -> None: # main function to handle the main gameloop
 
     cursor.move_to(0) # move cursor
     cursor.erase() # erase old text
-
-    # Create each player's board.
+    
     name1 = input("Enter the first player's name: ") # player 1 name input
-    name2 = input("Enter the second player's name: ") # player 2 name input
-
     # Default to "Player 1" if the first player didn't enter a name
     if len(name1) == 0: # if name1 is an empty string
         name1 = "Player 1" # set name1 to "Player 1"
+    
+    aiTest = input("Do you want to play 1P or 2P?: ")
+    
+    if aiTest == "1P":
+        player1 = Board(name1) # create player 1 board
+        difficulty = input("Choose Easy, Medium, or Hard: ")
+        player2 = Board(difficulty)
+    else:
+    # Create each player's board.
+        name2 = input("Enter the second player's name: ") # player 2 name input
+
+
 
     # Default to "Player 2" if the second player didn't enter a name
-    if len(name2) == 0: # if name2 is an empty string
-        name2 = "Player 2" # set name2 to "Player 2"
+        if len(name2) == 0: # if name2 is an empty string
+            name2 = "Player 2" # set name2 to "Player 2"
+        player1 = Board(name1) # create player 1 board
+        player2 = Board(name2) # create player 2 board
 
-    player1 = Board(name1) # create player 1 board
-    player2 = Board(name2) # create player 2 board
     players = [player1, player2] # list of players
     
     app = App(player1, player2) # Create the Battleship app.
