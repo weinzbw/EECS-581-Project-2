@@ -29,6 +29,18 @@
 
 **Sam Harrison**
 
+9/24/24 - (11:30 AM - 12:52 PM)
+
+* Spent time researching the code
+
+9/25/24 - (9:00 AM - 9:34 AM)
+
+* Coded hit and miss sounds
+
+9/26/24 - (9:10 AM - 9:23 AM)
+
+* Coded build sound
+* 
 ---
 
 **Mick Torres**
