@@ -1,3 +1,5 @@
+import random
+
 class AI():
     def __init__(self):
         # ask user to select a difficulty
