@@ -16,6 +16,10 @@ import os # import for os
 
 # ANSI Escape Sequences Reference: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
+
+import pygame
+pygame.mixer.init()
+
 '''
 Defines a main function that it used to maintain and run the primary game loop.
 Takes user input and calls the other classes as needed to run the game.
@@ -38,30 +42,21 @@ def main() -> None: # main function to handle the main gameloop
 
     cursor.move_to(0) # move cursor
     cursor.erase() # erase old text
-    
+
+    # Create each player's board.
     name1 = input("Enter the first player's name: ") # player 1 name input
+    name2 = input("Enter the second player's name: ") # player 2 name input
+
     # Default to "Player 1" if the first player didn't enter a name
     if len(name1) == 0: # if name1 is an empty string
         name1 = "Player 1" # set name1 to "Player 1"
-    
-    aiTest = input("Do you want to play 1P or 2P?: ")
-    
-    if aiTest == "1P":
-        player1 = Board(name1) # create player 1 board
-        difficulty = input("Choose Easy, Medium, or Hard: ")
-        player2 = Board(difficulty)
-    else:
-    # Create each player's board.
-        name2 = input("Enter the second player's name: ") # player 2 name input
-
-
 
     # Default to "Player 2" if the second player didn't enter a name
-        if len(name2) == 0: # if name2 is an empty string
-            name2 = "Player 2" # set name2 to "Player 2"
-        player1 = Board(name1) # create player 1 board
-        player2 = Board(name2) # create player 2 board
+    if len(name2) == 0: # if name2 is an empty string
+        name2 = "Player 2" # set name2 to "Player 2"
 
+    player1 = Board(name1) # create player 1 board
+    player2 = Board(name2) # create player 2 board
     players = [player1, player2] # list of players
     
     app = App(player1, player2) # Create the Battleship app.
@@ -91,9 +86,19 @@ def main() -> None: # main function to handle the main gameloop
                 # If the ship size is 1, assign both bow and stern to the same coordinate.
                 if ship == 0: # if first ship, aka 1x1
                     stern = bow = app.prompt_ship_coordinate(ship, "rear") # stern and bow assigned to same coordinate
+		            # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+                    pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                    pygame.mixer.music.play()
+                    while pygame.mixer.music.get_busy():
+                        pass
                 else: # else
                     stern = app.prompt_ship_coordinate(ship, "rear") # Rear coordinate of the ship.
                     bow = app.prompt_ship_coordinate(ship, "front") # Front coordinate of the ship.
+                    # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+                    pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                    pygame.mixer.music.play()
+                    while pygame.mixer.music.get_busy():
+                        pass
 
                 # Place the player's ship on their board.
                 if app.place_ship(player, stern, bow, ship + 1): # place currently input ship
@@ -149,6 +154,20 @@ def main() -> None: # main function to handle the main gameloop
             app.print_board(defender, censored=True) # print enemy board
             print(attack_result) # print result
 
+            # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+            if "Hit" in attack_result: #sam
+                pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "hit.wav"))
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy():
+                    pass
+
+            # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+            if "Miss" in attack_result: #sam
+                pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "miss.wav"))
+                pygame.mixer.music.play()
+                while pygame.mixer.music.get_busy():
+                    pass
+                
             break # break
 
         if defender.all_ships_sunk(): # Check if all ships of the enemy have been sunk
