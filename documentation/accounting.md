@@ -13,6 +13,10 @@
 
 * Creation of account.md and estimation.md
 
+9/21/24 - 1h
+
+* First attempt at Medium AI. Code will need to be polished later on
+
 9/25/24 - 0.5h
 
 * Added ai creation option to main()
