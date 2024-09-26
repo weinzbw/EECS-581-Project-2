@@ -9,7 +9,26 @@ class AI():
         pass # easy behavior goes here (returns coords)
     
     def med_shoot(self):
-        pass # med behavior (returns coords)
+        if lastShot is hit: # Checks if the last shot was a hit
+            # Goes through orthogonal process
+            coord = self.shots[-1].split()
+            new_coord = ord(coord[0])
+            coord[0] = chr(new_coord + 1)
+            if coord.join() in self.shots:
+                coord[0] = chr(new_coord - 1)
+                if coord.join() in self.shots:
+                    coord[0] = chr(new_coord)
+                    coord[1] += 1
+                    if coord.join() in self.shots:
+                        coord{1} -= 2
+            self.shots.append(coord.join())
+            return coord.join()
+        # Else, randomly pick coord
+        coord = random.randint(65, 90)
+        # Must be a coord not chosen before (Fix to have Column and Row)
+        while coord in self.shots:
+            coord = random.randint(65, 90)
+        return coord
     
     def hard_shoot(self):
         pass # hard behavior (returns coords)
