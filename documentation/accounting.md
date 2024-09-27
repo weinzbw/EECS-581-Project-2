@@ -49,7 +49,7 @@
 9/26/24 - (9:10 AM - 9:23 AM)
 
 * Coded build sound
-* 
+
 ---
 
 **Mick Torres**
