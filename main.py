@@ -16,7 +16,7 @@ import os # import for os
 
 # ANSI Escape Sequences Reference: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
-
+from ai import AI
 import pygame
 pygame.mixer.init()
 
@@ -55,6 +55,7 @@ def main() -> None: # main function to handle the main gameloop
         player1 = Board(name1) # create player 1 board
         difficulty = input("Choose Easy, Medium, or Hard: ")
         player2 = Board(difficulty)
+	ai = AI(player2)
     else:
     # Create each player's board.
         name2 = input("Enter the second player's name: ") # player 2 name input
@@ -65,6 +66,9 @@ def main() -> None: # main function to handle the main gameloop
         player1 = Board(name1) # create player 1 board
         player2 = Board(name2) # create player 2 board
     players = [player1, player2] # list of players
+    
+    if aiTest == "1P":
+	players[1] = ai.board
     
     app = App(player1, player2) # Create the Battleship app.
 
@@ -80,11 +84,15 @@ def main() -> None: # main function to handle the main gameloop
         cursor.erase() # erase old text
 
         print(player.name + "'s turn to place their ships") # print player and turn notification
-
+	
         for ship in range(app.num_ships): # For each ship in the player's arsenal.
             cursor.erase() # erase old text
             app.print_board(player) # print board for current player
 
+
+	    if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+	    # Use board variable from ai class to rondomly generate strings and pass them into player.place_ship until it is a valid placement for each ship?
+            
             print("Coordinate input format: A1") # message about coordinates
             print("Valid x-coordinates: A - J") # valid x range
             print("Valid y-coordinates: 1 - 10\n") # valid y range
@@ -146,6 +154,13 @@ def main() -> None: # main function to handle the main gameloop
 
         while True: # while true
             coord = app.prompt_attack_coordinate() # get attack coordinate
+	    if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+		if player.name == "Easy":
+			coord = ai.easy_shoot()
+		if player.name == "Medium":
+			coord = ai.med_shoot()
+		if player.name == "Hard":
+			coord = ai.hard_shoot()
             attack_result = app.attack(attacker, defender, coord) # assign string generated from attack
             if len(attack_result) == 0: # Don't allow the attacker to attack the same coordinate twice - prompt returns "" if same spot
                 cursor.move_to(31) # move cursor
