@@ -4,7 +4,12 @@
 9/18/24 - 0.75h
 
 * Meeting with GTA
-* Tean Meeting to Divide Work in the Project
+* Team Meeting to Divide Work in the Project
+
+9/25/24 - 0.75h
+
+* Meeting with GTA
+* Team Meeting for UML diagram and extra features for project (decided on adding sounds)
 ---
 
 **Ben Weinzirl**
