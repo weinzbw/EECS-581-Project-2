@@ -26,9 +26,13 @@
 
 * Added ai creation option to main()
 
-9/27/24 - .75h
+9/27/24 - 0.75h
 
 * Added more ai implementation to main() including ai.shoots() and started ai ship placement
+
+9/28/24 - 1h
+
+* Implemented medium_shoot() properly. Added remaining ai shooting capabilities to main()
  
 ---
 

@@ -55,7 +55,7 @@ def main() -> None: # main function to handle the main gameloop
         player1 = Board(name1) # create player 1 board
         difficulty = input("Choose Easy, Medium, or Hard: ")
         player2 = Board(difficulty)
-	ai = AI(player2)
+        ai = AI(player2)
     else:
     # Create each player's board.
         name2 = input("Enter the second player's name: ") # player 2 name input
@@ -68,7 +68,7 @@ def main() -> None: # main function to handle the main gameloop
     players = [player1, player2] # list of players
     
     if aiTest == "1P":
-	players[1] = ai.board
+        players[1] = ai.board
     
     app = App(player1, player2) # Create the Battleship app.
 
@@ -90,7 +90,7 @@ def main() -> None: # main function to handle the main gameloop
             app.print_board(player) # print board for current player
 
 
-	    if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+        if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
 	    # Use board variable from ai class to rondomly generate strings and pass them into player.place_ship until it is a valid placement for each ship?
             
             print("Coordinate input format: A1") # message about coordinates
@@ -153,15 +153,20 @@ def main() -> None: # main function to handle the main gameloop
         app.print_board(defender, censored=True) # print censored version of defending board
 
         while True: # while true
-            coord = app.prompt_attack_coordinate() # get attack coordinate
-	    if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
-		if player.name == "Easy":
-			coord = ai.easy_shoot()
-		if player.name == "Medium":
-			coord = ai.med_shoot()
-		if player.name == "Hard":
-			coord = ai.hard_shoot()
+            coord = ""
+            if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+                if player.name == "Easy":
+                    coord += ai.easy_shoot()
+                if player.name == "Medium":
+                    coord += ai.med_shoot()
+                if player.name == "Hard":
+                    coord += ai.hard_shoot()
+            else:
+                coord += app.prompt_attack_coordinate() # get attack coordinate
+
             attack_result = app.attack(attacker, defender, coord) # assign string generated from attack
+            if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+                ai.lastShot += attack_result
             if len(attack_result) == 0: # Don't allow the attacker to attack the same coordinate twice - prompt returns "" if same spot
                 cursor.move_to(31) # move cursor
                 cursor.erase() # erase old text
