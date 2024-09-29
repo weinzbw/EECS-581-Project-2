@@ -3,7 +3,7 @@ import random
 class AI():
     def __init__(self, board):
         self.shots = []
-        self.lastShot == ""
+        self.lastShot = ""
         self.board = board
     
     def easy_shoot(self):
@@ -43,8 +43,8 @@ class AI():
     
     def hard_shoot(self):
         for ship in self.opponent_ships:
-            if ship not in self.history:
-                self.history.add(ship)
+            if ship not in self.shots:
+                self.shots.append(ship)
                 return ship
     
     def turn(self):

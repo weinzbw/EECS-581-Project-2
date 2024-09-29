@@ -102,7 +102,7 @@ def main() -> None: # main function to handle the main gameloop
                 if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
                     if ship == 0:
                         coord = []
-                        coord.append(chr(random.randint(67, 79)))
+                        coord.append(chr(random.randint(65, 74)))
                         coord.append(str(random.randint(1, 10)))
                         if app._is_valid_coordinate(coord[0], coord[1:]):
                             stern = bow = ''.join(coord)
@@ -113,9 +113,9 @@ def main() -> None: # main function to handle the main gameloop
                     else:
                         coord1 = []
                         coord2 = []
-                        coord1.append(chr(random.randint(67, 79)))
+                        coord1.append(chr(random.randint(65, 74)))
                         coord1.append(str(random.randint(1, 10)))
-                        coord2.append(chr(random.randint(67, 79)))
+                        coord2.append(chr(random.randint(65, 74)))
                         coord2.append(str(random.randint(1, 10)))
                         stern = ''.join(coord1)
                         bow = ''.join(coord2)
