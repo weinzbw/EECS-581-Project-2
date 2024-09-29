@@ -8,20 +8,22 @@ class AI():
         self.orthogonal = []
     
     def makeOrthog(self):
-        coord = self.shots[-1].split()
+        coord = []
+        for letter in self.shots[-1]:
+            coord.append(letter)
         new_coord = ord(coord[0])
 
-        coord[0] = chr(new_coord + 1)
+        coord[0] = str(chr(new_coord + 1))
         self.orthogonal.append(''.join(coord))
         
-        coord[0] = chr(new_coord - 1)
+        coord[0] = str(chr(new_coord - 1))
         self.orthogonal.append(''.join(coord))
         
-        coord[0] = chr(new_coord)
-        coord[1] += 1
+        coord[0] = str(chr(new_coord))
+        coord[1] = str(int(coord[1]) + 1)
         self.orthogonal.append(''.join(coord))
         
-        coord[1] -= 2
+        coord[1] = str(int(coord[1]) - 2)
         self.orthogonal.append(''.join(coord))
     
     def easy_shoot(self):
@@ -38,29 +40,30 @@ class AI():
     
     def med_shoot(self):
         # Check if ship was sunk last shot. Fire randomly if so.
-        if "sunk" in self.lastShot.lower():
-            coord = [chr(random.randint(65, 74)), str(random.randint(1, 10))]
+        if "sunk" in self.lastShot.lower().split():
+            coord = [str(chr(random.randint(65, 74))), str(random.randint(1, 10))]
             # Must be a coord not chosen before (Fix to have Column and Row)
             while ''.join(coord) in self.shots:
-                coord = [chr(random.randint(65, 74)), str(random.randint(1, 10))]
+                coord = [str(chr(random.randint(65, 74))), str(random.randint(1, 10))]
             self.shots.append(''.join(coord))
             return ''.join(coord)
-        elif "hit" in self.lastShot.lower(): # Checks if the last shot was a hit
+        if "hit" in self.lastShot.lower().split(): # Checks if the last shot was a hit
             # Makes a list of orthogonal shots if so
-            self.makeOrthog
+            self.makeOrthog()
         # Tries to go through list of orthogonal shots
-        try:
+        if len(self.orthogonal) != 0:
             for coord in self.orthogonal:
                 if coord not in self.shots:
                     self.shots.append(coord)
                     return coord
         # If the list doesn't exist, then fire randomly
-        except:
-            coord = [chr(random.randint(65, 74)), str(random.randint(1, 10))]
+        else:
+            coord = [str(chr(random.randint(65, 74))), str(random.randint(1, 10))]
             # Must be a coord not chosen before (Fix to have Column and Row)
             while ''.join(coord) in self.shots:
-                coord = [chr(random.randint(65, 74)), str(random.randint(1, 10))]
+                coord = [str(chr(random.randint(65, 74))), str(random.randint(1, 10))]
             self.shots.append(''.join(coord))
+            print(coord)
             return ''.join(coord)
     
     def hard_shoot(self):

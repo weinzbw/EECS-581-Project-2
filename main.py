@@ -104,7 +104,7 @@ def main() -> None: # main function to handle the main gameloop
                         coord = []
                         coord.append(chr(random.randint(65, 74)))
                         coord.append(str(random.randint(1, 10)))
-                        if app._is_valid_coordinate(coord[0], coord[1:]):
+                        if app._is_valid_coordinate(coord[0], coord[-1]):
                             stern = bow = ''.join(coord)
                             pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
                             pygame.mixer.music.play()
@@ -181,19 +181,19 @@ def main() -> None: # main function to handle the main gameloop
 
         while True: # while true
             coord = ""
-            if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
-                if player.name == "Easy":
+            if aiTest == "1P" and (attacker.name == "Easy" or attacker.name == "Medium" or attacker.name == "Hard"):
+                if attacker.name == "Easy":
                     coord += ai.easy_shoot()
-                if player.name == "Medium":
+                if attacker.name == "Medium":
                     coord += ai.med_shoot()
-                if player.name == "Hard":
+                if attacker.name == "Hard":
                     coord += ai.hard_shoot()
             else:
                 coord += app.prompt_attack_coordinate() # get attack coordinate
 
             attack_result = app.attack(attacker, defender, coord) # assign string generated from attack
-            if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
-                ai.lastShot += attack_result
+            if aiTest == "1P" and (attacker.name == "Easy" or attacker.name == "Medium" or attacker.name == "Hard"):
+                ai.lastShot = attack_result
             if len(attack_result) == 0: # Don't allow the attacker to attack the same coordinate twice - prompt returns "" if same spot
                 cursor.move_to(31) # move cursor
                 cursor.erase() # erase old text

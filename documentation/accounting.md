@@ -34,9 +34,11 @@
 
 * Implemented medium_shoot() properly. Added remaining ai shooting capabilities to main()
 
-9/29/2024 - 0.5h
+9/29/2024 - 2h
 
 * Added Mick's code. Created a space in main() for ai to build ships randomly
+ 
+* Fixed medium_shoot() with testing
  
 ---
 
