@@ -18,6 +18,7 @@ import os # import for os
 
 from ai import AI
 import pygame
+import random
 pygame.mixer.init()
 
 '''
@@ -90,30 +91,56 @@ def main() -> None: # main function to handle the main gameloop
             app.print_board(player) # print board for current player
 
 
-        if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
-	    # Use board variable from ai class to rondomly generate strings and pass them into player.place_ship until it is a valid placement for each ship?
+            
+	        # Use board variable from ai class to rondomly generate strings and pass them into player.place_ship until it is a valid placement for each ship?
             
             print("Coordinate input format: A1") # message about coordinates
             print("Valid x-coordinates: A - J") # valid x range
             print("Valid y-coordinates: 1 - 10\n") # valid y range
 
             while True: # while true
-                # If the ship size is 1, assign both bow and stern to the same coordinate.
-                if ship == 0: # if first ship, aka 1x1
-                    stern = bow = app.prompt_ship_coordinate(ship, "rear") # stern and bow assigned to same coordinate
-		            # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
-                    pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
-                    pygame.mixer.music.play()
-                    while pygame.mixer.music.get_busy():
-                        pass
-                else: # else
-                    stern = app.prompt_ship_coordinate(ship, "rear") # Rear coordinate of the ship.
-                    bow = app.prompt_ship_coordinate(ship, "front") # Front coordinate of the ship.
-                    # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
-                    pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
-                    pygame.mixer.music.play()
-                    while pygame.mixer.music.get_busy():
-                        pass
+                if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
+                    if ship == 0:
+                        coord = []
+                        coord.append(chr(random.randint(67, 79)))
+                        coord.append(str(random.randint(1, 10)))
+                        if app._is_valid_coordinate(coord[0], coord[1:]):
+                            stern = bow = ''.join(coord)
+                            pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                            pygame.mixer.music.play()
+                            while pygame.mixer.music.get_busy():
+                                pass
+                    else:
+                        coord1 = []
+                        coord2 = []
+                        coord1.append(chr(random.randint(67, 79)))
+                        coord1.append(str(random.randint(1, 10)))
+                        coord2.append(chr(random.randint(67, 79)))
+                        coord2.append(str(random.randint(1, 10)))
+                        stern = ''.join(coord1)
+                        bow = ''.join(coord2)
+                        pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                        pygame.mixer.music.play()
+                        while pygame.mixer.music.get_busy():
+                            pass
+
+                else:
+                    # If the ship size is 1, assign both bow and stern to the same coordinate.
+                    if ship == 0: # if first ship, aka 1x1
+                        stern = bow = app.prompt_ship_coordinate(ship, "rear") # stern and bow assigned to same coordinate
+		                # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+                        pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                        pygame.mixer.music.play()
+                        while pygame.mixer.music.get_busy():
+                            pass
+                    else: # else
+                        stern = app.prompt_ship_coordinate(ship, "rear") # Rear coordinate of the ship.
+                        bow = app.prompt_ship_coordinate(ship, "front") # Front coordinate of the ship.
+                        # uses pygame to play sound effect in same directory, followed by stalling it until the sound effect is done by Sam Harrison
+                        pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
+                        pygame.mixer.music.play()
+                        while pygame.mixer.music.get_busy():
+                            pass
 
                 # Place the player's ship on their board.
                 if app.place_ship(player, stern, bow, ship + 1): # place currently input ship

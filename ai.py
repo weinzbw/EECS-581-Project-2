@@ -1,12 +1,22 @@
 import random
 
 class AI():
-    def __init__(self):
+    def __init__(self, board):
         self.shots = []
         self.lastShot == ""
+        self.board = board
     
     def easy_shoot(self):
-        pass # easy behavior goes here (returns coords)
+        coords = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        shot = None
+
+        while shot is None or shot in self.shots:
+            col = random.choice(coords)
+            row = str(random.randint(1, 10))
+            shot = col + row
+
+        self.shots.append(shot)
+        return shot
     
     def med_shoot(self):
         if "hit" in self.lastShot: # Checks if the last shot was a hit
@@ -32,7 +42,10 @@ class AI():
         return ''.join(coord)
     
     def hard_shoot(self):
-        pass # hard behavior (returns coords)
+        for ship in self.opponent_ships:
+            if ship not in self.history:
+                self.history.add(ship)
+                return ship
     
     def turn(self):
         # depending on self.difficulty, call one of the three methods above
