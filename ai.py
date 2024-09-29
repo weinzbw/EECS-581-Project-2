@@ -1,3 +1,11 @@
+'''
+Program Name: ai.py
+Description: Adds AI ability to the game. Specifically the firing of shots for different difficulties.
+Inputs: Needs a board class entity
+Output: Returns coordinates being shot at
+Authors: Del Endecott, Ben Weinzirl, Mick Torres
+Creation Date: 9/25/24
+'''
 import random
 
 class AI():
@@ -71,7 +79,3 @@ class AI():
             if ship not in self.shots:
                 self.shots.append(ship)
                 return ship
-    
-    def turn(self):
-        # depending on self.difficulty, call one of the three methods above
-        pass
