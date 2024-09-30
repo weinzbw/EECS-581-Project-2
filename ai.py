@@ -75,7 +75,11 @@ class AI():
             return ''.join(coord)
     
     def hard_shoot(self):
-        for ship in self.opponent_ships:
-            if ship not in self.shots:
-                self.shots.append(ship)
-                return ship
+        for ship in self.opponent_ships: # For each ship object
+            location = ship.indices # Gets ship indices
+            for part in location: # For each section of a ship
+                coord = [str(chr(part[1] + 65)), str(part[0]+1)]
+                coord = ''.join(coord)
+                if coord not in self.shots: # If coord is not shot at before
+                    self.shots.append(coord)
+                    return coord
