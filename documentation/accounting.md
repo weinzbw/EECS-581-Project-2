@@ -9,7 +9,7 @@
 9/25/24 - 0.75h
 
 * Meeting with GTA
-* Team Meeting for UML diagram and extra features for project (decided on adding sounds)
+* Team Meeting for UML diagram and extra features for the project (decided on adding sounds)
 ---
 
 **Ben Weinzirl**
@@ -46,6 +46,16 @@
 
 **Del Endecott**
 
+9/24/24 - 0.5h
+* Implemented base AI class
+* Outlined easy, medium, hard shooting methods
+
+9/27/24 - 0.5h
+* Troubleshooting for AI shooting methods
+
+9/29/24 - 1hr
+* Fixed, tested hard_shoot()
+
 ---
 
 **Sam Harrison**
@@ -81,3 +91,5 @@
 * Created System Diagram for add-on
 
 ---
+
+TOTAL: ~17.5h
