@@ -15,7 +15,7 @@ class AI():
         self.board = board
         self.orthogonal = []
     
-    def makeOrthog(self):
+    def makeOrthog(self): # Creates a list of orthogonal shots based on last shot
         coord = []
         for letter in self.shots[-1]:
             coord.append(letter)
@@ -35,16 +35,16 @@ class AI():
         self.orthogonal.append(''.join(coord))
     
     def easy_shoot(self):
-        coords = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+        coords = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'] # Defines possible coordinates
         shot = None
 
-        while shot is None or shot in self.shots:
+        while shot is None or shot in self.shots: # Randomizes new shot
             col = random.choice(coords)
             row = str(random.randint(1, 10))
             shot = col + row
 
         self.shots.append(shot)
-        return shot
+        return shot # Returns coordinate
     
     def med_shoot(self):
         # Check if ship was sunk last shot. Fire randomly if so.

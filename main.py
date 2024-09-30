@@ -16,10 +16,10 @@ import os # import for os
 
 # ANSI Escape Sequences Reference: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
 
-from ai import AI
-import pygame
-import random
-pygame.mixer.init()
+from ai import AI # import ai class
+import pygame # import pygame for sounds
+import random # import random
+pygame.mixer.init() # Initialize sound mixer
 
 '''
 Defines a main function that it used to maintain and run the primary game loop.
@@ -50,14 +50,14 @@ def main() -> None: # main function to handle the main gameloop
     if len(name1) == 0: # if name1 is an empty string
         name1 = "Player 1" # set name1 to "Player 1"
     
-    aiTest = input("Do you want to play 1P or 2P?: ")
+    aiTest = input("Do you want to play 1P or 2P?: ").upper() # Asks if it is a 1P or 2P game
     
-    if aiTest == "1P":
+    if aiTest == "1P": # Initializes ai
         player1 = Board(name1) # create player 1 board
-        difficulty = input("Choose Easy, Medium, or Hard: ")
+        difficulty = input("Choose Easy, Medium, or Hard: ") # Choose difficulty
         player2 = Board(difficulty)
-        ai = AI(player2)
-	ai.opponent_ships = player1.ships
+        ai = AI(player2) # ai is based on a board with the name of the difficulty
+        ai.opponent_ships = player1.ships # Save opponents' ships to ai class
     else:
     # Create each player's board.
         name2 = input("Enter the second player's name: ") # player 2 name input
@@ -69,8 +69,8 @@ def main() -> None: # main function to handle the main gameloop
         player2 = Board(name2) # create player 2 board
     players = [player1, player2] # list of players
     
-    if aiTest == "1P":
-        players[1] = ai.board
+    if aiTest == "1P": # If there is ai
+        players[1] = ai.board # Player 2 is ai
     
     app = App(player1, player2) # Create the Battleship app.
 
@@ -100,18 +100,18 @@ def main() -> None: # main function to handle the main gameloop
             print("Valid y-coordinates: 1 - 10\n") # valid y range
 
             while True: # while true
-                if aiTest == "1P" and player.name == "Easy" or player.name == "Medium" or player.name == "Hard":
-                    if ship == 0:
+                if aiTest == "1P" and player.name.lower() == "easy" or player.name.lower() == "medium" or player.name.lower() == "hard": # Check if it is ai turn
+                    if ship == 0: # If the ship is a 1x1
                         coord = []
                         coord.append(chr(random.randint(65, 74)))
                         coord.append(str(random.randint(1, 10)))
-                        if app._is_valid_coordinate(coord[0], coord[-1]):
+                        if app._is_valid_coordinate(coord[0], coord[-1]): # Randomly creates a coordinate until it is valid
                             stern = bow = ''.join(coord)
                             pygame.mixer.music.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), "build.mp3"))
                             pygame.mixer.music.play()
                             while pygame.mixer.music.get_busy():
                                 pass
-                    else:
+                    else: # For every other ship, crteate different stern and bow
                         coord1 = []
                         coord2 = []
                         coord1.append(chr(random.randint(65, 74)))
@@ -182,18 +182,18 @@ def main() -> None: # main function to handle the main gameloop
 
         while True: # while true
             coord = ""
-            if aiTest == "1P" and (attacker.name == "Easy" or attacker.name == "Medium" or attacker.name == "Hard"):
-                if attacker.name == "Easy":
+            if aiTest == "1P" and (attacker.name.lower() == "easy" or attacker.name.lower() == "medium" or attacker.name.lower() == "hard"):
+                if attacker.name.lower() == "easy":
                     coord += ai.easy_shoot()
-                if attacker.name == "Medium":
+                if attacker.name.lower() == "medium":
                     coord += ai.med_shoot()
-                if attacker.name == "Hard":
+                if attacker.name.lower() == "hard":
                     coord += ai.hard_shoot()
             else:
                 coord += app.prompt_attack_coordinate() # get attack coordinate
 
             attack_result = app.attack(attacker, defender, coord) # assign string generated from attack
-            if aiTest == "1P" and (attacker.name == "Easy" or attacker.name == "Medium" or attacker.name == "Hard"):
+            if aiTest == "1P" and (attacker.name.lower() == "easy" or attacker.name.lower() == "medium" or attacker.name.lower() == "hard"):
                 ai.lastShot = attack_result
             if len(attack_result) == 0: # Don't allow the attacker to attack the same coordinate twice - prompt returns "" if same spot
                 cursor.move_to(31) # move cursor
