@@ -57,6 +57,7 @@ def main() -> None: # main function to handle the main gameloop
         difficulty = input("Choose Easy, Medium, or Hard: ")
         player2 = Board(difficulty)
         ai = AI(player2)
+	ai.opponent_ships = player1.ships
     else:
     # Create each player's board.
         name2 = input("Enter the second player's name: ") # player 2 name input
